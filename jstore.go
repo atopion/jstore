@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"path"
 	"path/filepath"
 	"regexp"
@@ -22,14 +21,8 @@ var folder string
 func init() {
 	flag.StringVar(&url, "u", "http://localhost:8080", "The url of the current machine. To be displayed in the returned identifier.")
 	flag.StringVar(&port, "p", "8080", "The port this application should run on.")
-	flag.StringVar(&folder, "f", "store", "Folder to store the files in")
+	flag.StringVar(&folder, "f", "/store", "Folder to store the files in. (absolut)")
 	flag.Parse()
-
-	cwd, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
-	folder = filepath.Join(cwd, folder)
 }
 
 /*Document  :
