@@ -17,5 +17,5 @@ Files are stored using UUIDs as identifiers, by which they can be accessed.
 
 ### Arguments
 - `-f`: Path to the folder in which `jstore` should store the files.
-- `-p`: Port on which `jstore` should run
+- `-p`: Port on which `jstore` should run (default: 8080)
 - `-u`: Base URL that will be returned together with the identifier when a new file is stored.
