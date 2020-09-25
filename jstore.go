@@ -141,7 +141,7 @@ func handlersSwitch(w http.ResponseWriter, r *http.Request) {
 		viewHandler(w, r)
 	case http.MethodPost:
 		storeHandler(w, r)
-	case http.MethodPatch:
+	case http.MethodPut:
 		modifyHandler(w, r)
 	default:
 		http.Error(w, "Method not supported", http.StatusNotImplemented)
