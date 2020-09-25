@@ -142,6 +142,7 @@ func handlersSwitch(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	log.Printf("Start server on port %s ...\n", port)
 	http.HandleFunc("/", handlersSwitch)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
