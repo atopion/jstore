@@ -128,7 +128,19 @@ func modifyHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(path.Join(url, title+".json")))
 }
 
+func optionsHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNoContent)
+}
+
+func corsHeaderHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, Authorization")
+}
+
 func handlersSwitch(w http.ResponseWriter, r *http.Request) {
+	corsHeaderHandler(w, r)
+
 	switch r.Method {
 	case http.MethodGet:
 		viewHandler(w, r)
@@ -136,6 +148,8 @@ func handlersSwitch(w http.ResponseWriter, r *http.Request) {
 		storeHandler(w, r)
 	case http.MethodPut:
 		modifyHandler(w, r)
+	case http.MethodOptions:
+		optionsHandler(w, r)
 	default:
 		http.Error(w, "Method not supported", http.StatusNotImplemented)
 	}
