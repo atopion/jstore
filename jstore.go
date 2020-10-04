@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"path"
 	"path/filepath"
 	"regexp"
 
@@ -97,7 +96,7 @@ func storeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte(path.Join(url, title+".json")))
+	w.Write([]byte(url + "/" + title + ".json"))
 }
 
 func modifyHandler(w http.ResponseWriter, r *http.Request) {
@@ -125,7 +124,7 @@ func modifyHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte(path.Join(url, title+".json")))
+	w.Write([]byte(url + "/" + title + ".json"))
 }
 
 func optionsHandler(w http.ResponseWriter, r *http.Request) {
