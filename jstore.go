@@ -32,7 +32,7 @@ type Document struct {
 	Body  []byte
 }
 
-var validPath = regexp.MustCompile("^/([a-zA-Z0-9\\-]+)(.json)?$")
+var validPath = regexp.MustCompile("^(/jstore)?/([a-zA-Z0-9\\-]+)(.json)?$")
 
 func (d *Document) save() error {
 	filename := d.Title + ".json"
@@ -52,9 +52,9 @@ func getTitleFromPath(w http.ResponseWriter, r *http.Request) (string, error) {
 	m := validPath.FindStringSubmatch(r.URL.Path)
 	if m == nil {
 		http.NotFound(w, r)
-		return "", errors.New("Invalid Document Identifier")
+		return "", errors.New("Invalid Document Identifier: " + r.URL.Path)
 	}
-	return m[1], nil
+	return m[2], nil
 }
 
 func viewHandler(w http.ResponseWriter, r *http.Request) {
@@ -102,6 +102,7 @@ func storeHandler(w http.ResponseWriter, r *http.Request) {
 func modifyHandler(w http.ResponseWriter, r *http.Request) {
 	title, err := getTitleFromPath(w, r)
 	if err != nil {
+		log.Printf("Could not read filename: %s\n", err.Error())
 		return
 	}
 	body, err := ioutil.ReadAll(r.Body)
@@ -112,6 +113,7 @@ func modifyHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	d, err := loadDocument(title)
 	if err != nil {
+		log.Printf("Cannot find file: %s\n", err.Error())
 		http.NotFound(w, r)
 		return
 	}

@@ -48,4 +48,4 @@ USER appuser:appuser
 # Expose port 8080
 EXPOSE 8080
 
-ENTRYPOINT [ "/go/bin/jstore", "-f", "/store", "-u", "http://localhost:8080", "-p", "8080" ]
+ENTRYPOINT [ "/go/bin/jstore", "-f", "/store", "-u", "https://staging.forum-wissen.de/jstore", "-p", "8080" ]
