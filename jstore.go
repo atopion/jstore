@@ -97,6 +97,7 @@ func storeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
+	w.Header().Set("location", path.Join(url, title+".json"))
 	w.Write([]byte(path.Join(url, title+".json")))
 }
 
