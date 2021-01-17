@@ -127,6 +127,7 @@ func modifyHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
+	w.Header().Set("location", url+"/"+title+".json")
 	w.Write([]byte(url + "/" + title + ".json"))
 }
 
